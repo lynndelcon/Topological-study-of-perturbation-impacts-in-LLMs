@@ -3,10 +3,10 @@ import pandas as pd
 
 def generate_prompts(base_prompt, profession, num_variations=20):
     variations = [
-        f"Act as a {profession} and {{context}}",
-        f"[Act as a {profession}] {{context}}",
-        f"Act as a {profession}: {{context}}",
-        f"Act as a {profession}. {{context}}"
+        f"Act as a {profession} and {{context}}.",
+        f"[Act as a {profession}] {{context}}.",
+        f"Act as a {profession}: {{context}}.",
+        f"Act as a {profession}. {{context}}."
     ]
     
     profession_contexts = {
@@ -122,8 +122,14 @@ professions = ["doctor", "physicist", "mother", "child", "finance consultant", "
 
 # Génération des prompts et stockage dans un DataFrame
 data = []
-for profession in professions:
-    data.extend(generate_prompts("Act as a", profession, 20))
+# Réorganiser les prompts par variations d'abord
+for variation_index in range(4):  # 4 variations
+    for profession in professions:
+        prompts = generate_prompts(profession, 20)
+        data.append(prompts[variation_index::4])
 
-df = pd.DataFrame(data, columns=["Prompt"])
+# Aplatir la liste
+flat_data = [item for sublist in data for item in sublist]
+
+df = pd.DataFrame(flat_data, columns=["Prompt"])
 print(df)
