@@ -1,3 +1,4 @@
+#first run token_space.py script to produce the output and input matrix of token embeddings
 import numpy as np
 from sklearn.manifold import Isomap
 from scipy.spatial.distance import pdist, squareform
