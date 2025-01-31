@@ -50,7 +50,7 @@ def generate_response(input_text):
     # Générer une réponse avec les paramètres ajustés
     output_ids = model.generate(
         input_ids,
-        max_length=200,  # Augmenter la longueur maximale de la séquence générée
+        max_length=100,  # Augmenter la longueur maximale de la séquence générée
         pad_token_id=tokenizer.eos_token_id
     )
 
@@ -262,14 +262,12 @@ print(med)
 
 # Préparer les données pour les boxplots
 import matplotlib.pyplot as plt
-import numpy as np  # Assurez-vous d'avoir numpy pour manipuler les sous-ensembles
-
-# Exemple : Supposons que Ricci_input est un tableau numpy pour illustrer
-# Vous pouvez remplacer cela par votre tableau réel
+import numpy as np  
 
 
-# Regrouper les lignes : 0-5 dans le premier groupe, 6-11 dans le second
-group_1 = np.concatenate(Ricci_input) # Regroupe toutes les valeurs des lignes 0 à 5
+
+
+group_1 = np.concatenate(Ricci_input) 
 group_2 = np.concatenate(Ricci_output)
 data = [group_1, group_2]
 # Créer le graphique
@@ -311,7 +309,7 @@ print(moy)
 med = np.median(flattened)
 print(med)
 
-group_1 = np.concatenate(dim_input) # Regroupe toutes les valeurs des lignes 0 à 5
+group_1 = np.concatenate(dim_input) 
 group_2 = np.concatenate(dim_output)
 data = [group_1, group_2]
 # Créer le graphique
@@ -353,7 +351,7 @@ print(moy)
 med = np.median(flattened)
 print(med)
 
-group_1 = np.concatenate(K_prime_in) # Regroupe toutes les valeurs des lignes 0 à 5
+group_1 = np.concatenate(K_prime_in) 
 group_2 = np.concatenate(K_prime_out)
 data = [group_1, group_2]
 # Créer le graphique
@@ -374,15 +372,12 @@ plt.show()
 """Within puts boxplots"""
 
 import matplotlib.pyplot as plt
-import numpy as np  # Assurez-vous d'avoir numpy pour manipuler les sous-ensembles
-
-# Exemple : Supposons que Ricci_input est un tableau numpy pour illustrer
-# Vous pouvez remplacer cela par votre tableau réel
+import numpy as np 
 
 
-# Regrouper les lignes : 0-5 dans le premier groupe, 6-11 dans le second
-group_and = np.concatenate(Ricci_input[0:5]) # Regroupe toutes les valeurs des lignes 0 à 5
-group_braket = np.concatenate(Ricci_input[6:11])  # Regroupe toutes les valeurs des lignes 6 à 11
+
+group_and = np.concatenate(Ricci_input[0:5]) 
+group_braket = np.concatenate(Ricci_input[6:11])  
 group_colon = np.concatenate(Ricci_input[12:17])
 group_period = np.concatenate(Ricci_input[18:23])
 # Préparer les données pour les boxplots
@@ -405,20 +400,11 @@ plt.show()
 
 np.max(group_and)
 
-from scipy.stats import shapiro
-stat1, p1 = shapiro(group_1) #0.011
-stat2, p2 = shapiro(group_2) #0.022
 
-print(p2)
 
-from scipy.stats import mannwhitneyu
-stat, p_value = mannwhitneyu(group_1, group_2)
-print(p_value)#1.27x10^-05
 
-# Regrouper les lignes : 0-5 dans le premier groupe, 6-11 dans le second
- # Regroupe toutes les valeurs des lignes 6 à 11
-group_and = np.concatenate(Ricci_output[0:5]) # Regroupe toutes les valeurs des lignes 0 à 5
-group_braket = np.concatenate(Ricci_output[6:11])  # Regroupe toutes les valeurs des lignes 6 à 11
+group_and = np.concatenate(Ricci_output[0:5]) 
+group_braket = np.concatenate(Ricci_output[6:11])  
 group_colon = np.concatenate(Ricci_output[12:17])
 group_period = np.concatenate(Ricci_output[18:23])
 # Préparer les données pour les boxplots
@@ -439,16 +425,13 @@ plt.ylabel("Valeurs")
 # Afficher le graphique
 plt.show()
 
-from scipy.stats import mannwhitneyu
-stat, p_value = mannwhitneyu(group_1, group_2)
-print(p_value)#0.904
 
-print(input_matrix[0].shape)
 
-# Regrouper les lignes : 0-5 dans le premier groupe, 6-11 dans le second
-  # Regroupe toutes les valeurs des lignes 6 à 11
-group_and = np.concatenate(dim_input[0:5]) # Regroupe toutes les valeurs des lignes 0 à 5
-group_braket = np.concatenate(dim_input[6:11])  # Regroupe toutes les valeurs des lignes 6 à 11
+
+
+
+group_and = np.concatenate(dim_input[0:5])
+group_braket = np.concatenate(dim_input[6:11]) 
 group_colon = np.concatenate(dim_input[12:17])
 group_period = np.concatenate(dim_input[18:23])
 # Préparer les données pour les boxplots
@@ -469,14 +452,11 @@ plt.ylabel("Local dimension")
 # Afficher le graphique
 plt.show()
 
-from scipy.stats import mannwhitneyu
-stat, p_value = mannwhitneyu(group_1, group_2)
-print(p_value)#0.49
 
-# Regrouper les lignes : 0-5 dans le premier groupe, 6-11 dans le second
-  # Regroupe toutes les valeurs des lignes 6 à 11
-group_and = np.concatenate(dim_output[0:5]) # Regroupe toutes les valeurs des lignes 0 à 5
-group_braket = np.concatenate(dim_output[6:11])  # Regroupe toutes les valeurs des lignes 6 à 11
+
+
+group_and = np.concatenate(dim_output[0:5]) 
+group_braket = np.concatenate(dim_output[6:11])  
 group_colon = np.concatenate(dim_output[12:17])
 group_period = np.concatenate(dim_output[18:23])
 # Préparer les données pour les boxplots
@@ -486,8 +466,7 @@ data = [group_and, group_braket, group_colon, group_period]
 plt.figure(figsize=(10, 6))
 plt.boxplot(data, vert=True)
 
-# Ajouter des labels pour les groupes
-#plt.xticks([1, 2], ['Lignes 0-5', 'Lignes 6-11'])
+
 
 # Ajouter un titre et des labels
 plt.title("Boxplots for local dim output")
@@ -497,14 +476,11 @@ plt.ylabel("Valeurs")
 # Afficher le graphique
 plt.show()
 
-from scipy.stats import mannwhitneyu
-stat, p_value = mannwhitneyu(group_1, group_2)
-print(p_value)#7.08x10^-05
 
-# Regrouper les lignes : 0-5 dans le premier groupe, 6-11 dans le second
-  # Regroupe toutes les valeurs des lignes 6 à 11
-group_and = np.concatenate(K_prime_in[0:5]) # Regroupe toutes les valeurs des lignes 0 à 5
-group_braket = np.concatenate(K_prime_in[6:11])  # Regroupe toutes les valeurs des lignes 6 à 11
+
+
+group_and = np.concatenate(K_prime_in[0:5])
+group_braket = np.concatenate(K_prime_in[6:11])  
 group_colon = np.concatenate(K_prime_in[12:17])
 group_period = np.concatenate(K_prime_in[18:23])
 # Préparer les données pour les boxplots
@@ -514,8 +490,7 @@ data = [group_and, group_braket, group_colon, group_period]
 plt.figure(figsize=(10, 6))
 plt.boxplot(data, vert=True)
 
-# Ajouter des labels pour les groupes
-#plt.xticks([1, 2], ['Lignes 0-5', 'Lignes 6-11'])
+
 
 # Ajouter un titre et des labels
 plt.title("Boxplots for K_prime_in")
@@ -525,15 +500,12 @@ plt.ylabel("Valeurs")
 # Afficher le graphique
 plt.show()
 
-from scipy.stats import mannwhitneyu
-stat, p_value = mannwhitneyu(group_1, group_2)
-print(p_value)#0.92
 
-# Regrouper les lignes : 0-5 dans le premier groupe, 6-11 dans le second
-group_and = np.concatenate(K_prime_out[0:5]) # Regroupe toutes les valeurs des lignes 0 à 5
-group_braket = np.concatenate(K_prime_out[6:11])  # Regroupe toutes les valeurs des lignes 6 à 11
+
+group_and = np.concatenate(K_prime_out[0:5]) 
+group_braket = np.concatenate(K_prime_out[6:11])  
 group_colon = np.concatenate(K_prime_out[12:17])
-group_period = np.concatenate(K_prime_out[18:23])  # Regroupe toutes les valeurs des lignes 6 à 11
+group_period = np.concatenate(K_prime_out[18:23])  
 
 # Préparer les données pour les boxplots
 data = [group_and, group_braket, group_colon, group_period]
@@ -553,6 +525,4 @@ plt.ylabel("Valeurs")
 # Afficher le graphique
 plt.show()
 
-from scipy.stats import mannwhitneyu
-stat, p_value = mannwhitneyu(group_1, group_2)
-print(p_value)#0.26
+
