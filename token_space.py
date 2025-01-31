@@ -19,7 +19,7 @@ import pandas as pd
 
 # Remplace 'Act_as_a.csv' par le nom du fichier téléchargé
 df = pd.read_csv('Act_as_a_modif.csv',index_col=None,header=None,sep=';')
-
+#or use df generated in prompt_generation.py script
 # Afficher les premières lignes du tableau
 print(df)
 
