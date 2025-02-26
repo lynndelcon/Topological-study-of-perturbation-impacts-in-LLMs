@@ -115,25 +115,27 @@ def least_squares_estimates(input_matrix):
     # Étape 3 : Estimation des paramètres (log_K_values, n_values, std_errors_all)
     log_K_values = []
     n_values = []
-    std_errors_all = []
+    #std_errors_all = []
 
     for i in range(log_r_subset.shape[0]):
         # Matrice X pour la régression linéaire
         X = np.vstack([np.ones(log_r_subset.shape[1]), log_r_subset[i, :]]).T
         beta = np.linalg.inv(X.T @ X) @ X.T @ log_v  # Coefficients de régression
-        residuals = log_v - X @ beta
+        #residuals = log_v - X @ beta
         n, p = X.shape
-        sigma_squared = np.sum(residuals**2) / (n - p)  # Variance résiduelle
-        cov_beta = sigma_squared * np.linalg.inv(X.T @ X)  # Matrice de covariance
-        std_errors = np.sqrt(np.diag(cov_beta))  # Erreurs standards des paramètres
+        #for a corrected K :
+        #sigma_squared = np.sum(residuals**2) / (n - p)  # Variance résiduelle
+        #cov_beta = sigma_squared * np.linalg.inv(X.T @ X)  # Matrice de covariance
+        #std_errors = np.sqrt(np.diag(cov_beta))  # Erreurs standards des paramètres
+        #std_errors_all.append(std_errors)
         log_K_values.append(beta[0])
         n_values.append(beta[1])
-        std_errors_all.append(std_errors)
+        
 
     std_errors_all = np.array(std_errors_all)
     n_values = np.array(n_values)
-    K_prime = np.exp(log_K_values) * np.exp((std_errors_all[:, 0]**2) / 2)
-    log_K_prime = np.log(K_prime)
+    #K_prime = np.exp(log_K_values) * np.exp((std_errors_all[:, 0]**2) / 2)
+    #log_K_prime = np.log(K_prime)
 
     # Étape 4 : Calcul de la courbure de Ricci (R_icj)
     R_icj_values = []
@@ -144,7 +146,7 @@ def least_squares_estimates(input_matrix):
             log_v_ij = log_v[i]
             r_ij_squared = np.exp(2 * log_r_ij)
             term = (6 * n_values[j] + 2) / r_ij_squared
-            term *= (log_K_prime[j] + n_values[j] * log_r_ij - log_v_ij)
+            term *= (log_K_values[j] + n_values[j] * log_r_ij - log_v_ij)
             summation += term
         p = log_r_subset.shape[1]
         R_icj = summation / p
@@ -153,7 +155,7 @@ def least_squares_estimates(input_matrix):
     R_icj_array = np.array(R_icj_values)
 
     # Retourner uniquement Ricci_scalar et n_values
-    return R_icj_array,n_values,log_K_prime, K_prime
+    return R_icj_array,n_values,log_K_values, #K_prime
 
 """Loop to retreive local dim, K and Ricci for each input sentences"""
 
